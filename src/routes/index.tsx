@@ -1,24 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { ShoppingBag, Instagram, Twitter, Youtube } from "lucide-react";
 
-import bottle from "@/assets/vantage-bottle.jpg";
-import chess from "@/assets/vantage-chess.jpg";
-import notes from "@/assets/vantage-notes.jpg";
-import packaging from "@/assets/vantage-packaging.jpg";
+import bottle from "@/assets/vantage-bottle-sarkar.jpg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sarkar Vantage — For the ones who already have the edge" },
+      { title: "Sarkar Vantage — Unisex Spiced Woody Parfum" },
       {
         name: "description",
         content:
-          "Vantage by Sarkar. Bottled for the second before the deal closes, the point is won, the room turns. A parfum for those already three moves ahead.",
+          "Vantage by Sarkar. Bottled for the second before the deal closes, the point is won, the room turns. A 100ml unisex spiced woody parfum.",
       },
       { property: "og:title", content: "Sarkar Vantage — Already three moves ahead" },
       {
         property: "og:description",
         content:
-          "Vantage isn't about getting ahead. It's about already being there. A 25% concentration parfum from Sarkar.",
+          "For the ones who already have the edge. Unisex spiced woody parfum from Sarkar.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -27,267 +33,312 @@ export const Route = createFileRoute("/")({
   component: VantageLanding,
 });
 
-const moves = [
+const notes = [
   {
-    index: "01",
-    title: "The Pause",
-    body: "The half-second of stillness before the room shifts. Cold bergamot and green cardamom clear the air around you.",
+    tier: "Top",
+    items: "Grapefruit, Ginger",
+    cue: "Sharp opening",
   },
   {
-    index: "02",
-    title: "The Turn",
-    body: "Black pepper over vetiver. The moment they realise the ground moved and it wasn't under you.",
+    tier: "Heart",
+    items: "Cardamom, Violet Leaf",
+    cue: "Composed centre",
   },
   {
-    index: "03",
-    title: "The Close",
-    body: "Leather, oud and amberwood settle in and stay. The scent of a thing already decided.",
+    tier: "Base",
+    items: "Cedarwood, Vetiver, Ambergris",
+    cue: "Lasting edge",
   },
 ];
 
-const composition = [
-  { tier: "Top", note: "Bergamot, Green Cardamom", cue: "Cold / Precise" },
-  { tier: "Heart", note: "Black Pepper, Vetiver, Iris", cue: "Kinetic / Dry" },
-  { tier: "Base", note: "Oud, Leather, Amberwood", cue: "Enduring / Deep" },
+const faqs = [
+  {
+    question: "How long does Vantage last?",
+    answer:
+      "Vantage is a parfum with a 25% oil concentration. On most skin types it lasts up to 8 hours, depending on weather, application and your skin chemistry.",
+  },
+  {
+    question: "What does Vantage smell like?",
+    answer:
+      "Sharp and composed. A grapefruit and ginger opening, a cardamom and violet leaf heart, and a cedarwood, vetiver and ambergris base that stays close to the skin.",
+  },
+  {
+    question: "Can I wear Vantage every day?",
+    answer:
+      "Yes. It's sharp enough for moments that need an edge, easy enough for daily wear.",
+  },
+  {
+    question: "Summer or winter?",
+    answer:
+      "Both. The citrus-ginger opening carries well in warm weather, while the woody base holds up through winter.",
+  },
+  {
+    question: "When should I wear Vantage?",
+    answer:
+      "Negotiations, interviews, match point — any moment before the advantage is yours.",
+  },
 ];
+
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, visible };
+}
+
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const { ref, visible } = useReveal<HTMLDivElement>();
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1) ${delay}ms, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 function VantageLanding() {
+  const [cartCount, setCartCount] = useState(0);
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    setCartCount((c) => c + 1);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
+
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/70 backdrop-blur-md">
+    <div className="min-h-screen bg-background text-foreground selection:bg-copper selection:text-ink">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <span className="font-display text-lg font-bold tracking-[0.42em] uppercase">
+          <a href="/" className="font-display text-lg tracking-[0.32em] uppercase">
             Sarkar
-          </span>
-          <nav className="hidden gap-10 label-xs text-muted-foreground md:flex">
-            <a href="#philosophy" className="transition-colors hover:text-edge">
-              Philosophy
-            </a>
-            <a href="#composition" className="transition-colors hover:text-edge">
-              Composition
-            </a>
-            <a href="#ritual" className="transition-colors hover:text-edge">
-              Ritual
-            </a>
-          </nav>
-          <a
-            href="#acquire"
-            className="border border-edge/40 px-4 py-2 label-xs text-edge transition-colors hover:bg-edge hover:text-primary-foreground"
-          >
-            Buy Now
           </a>
+          <button
+            className="relative flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:text-copper"
+            aria-label="Shopping bag"
+          >
+            <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
+            {cartCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-copper text-[10px] font-medium text-ink">
+                {cartCount}
+              </span>
+            )}
+          </button>
         </div>
       </header>
 
-      <section className="relative overflow-hidden pt-32 pb-24">
-        <div className="veil pointer-events-none absolute inset-0 opacity-70" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
-          <div className="animate-rise">
-            <p className="label-xs text-edge">Sarkar · Parfum · 100ml</p>
-            <h1 className="mt-6 font-display text-6xl leading-[0.86] font-extrabold tracking-tight uppercase md:text-8xl">
-              Vantage
-            </h1>
-            <p className="mt-8 max-w-md text-lg leading-relaxed text-muted-foreground">
-              For the ones who already have the edge. Vantage isn't about getting ahead —
-              it's about already being there.
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-3 label-xs text-muted-foreground">
-              <span className="border border-border px-3 py-1.5">Unisex</span>
-              <span className="border border-border px-3 py-1.5">Sharp Green</span>
-              <span className="border border-border px-3 py-1.5">25% Parfum</span>
+      <main>
+        {/* Hero */}
+        <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
+          <div className="veil pointer-events-none absolute inset-0 opacity-60" />
+          <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-20">
+            <div className="order-2 lg:order-1">
+              <p className="label-xs text-copper">Unisex Spiced Woody Parfum</p>
+              <h1 className="mt-5 font-display text-6xl leading-[0.9] font-normal tracking-tight md:text-8xl lg:text-9xl">
+                Vantage
+                <span className="block text-2xl text-muted-foreground md:text-3xl md:leading-[1.2]">
+                  (100ml)
+                </span>
+              </h1>
+              <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground md:text-xl">
+                Negotiations · Match point · The advantage
+              </p>
+              <div className="mt-8 flex items-baseline gap-4">
+                <span className="font-display text-4xl font-normal">₹1,499</span>
+                <span className="label-xs text-muted-foreground">Incl. of all taxes</span>
+              </div>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Button
+                  onClick={handleAddToCart}
+                  className="h-12 px-10 bg-copper text-ink font-sans text-sm font-medium tracking-[0.2em] uppercase hover:bg-copper-glow transition-colors"
+                >
+                  {added ? "Added" : "Add to Cart"}
+                </Button>
+              </div>
+              <p className="mt-4 text-xs text-muted-foreground">
+                Free shipping across India. Ships within 24–36 hours.
+              </p>
             </div>
-            <div className="mt-12 flex items-baseline gap-4">
-              <span className="font-display text-3xl font-bold">₹ 2,499</span>
-              <span className="label-xs text-muted-foreground">Incl. of all taxes</span>
+
+            <div className="order-1 lg:order-2">
+              <div className="animate-drift relative mx-auto max-w-sm lg:max-w-md">
+                <img
+                  src={bottle}
+                  alt="Sarkar Vantage 100ml parfum bottle in amber glass with a brushed copper cap"
+                  width={1024}
+                  height={1280}
+                  className="w-full object-cover shadow-halo"
+                  
+                />
+              </div>
             </div>
-            <a
-              href="#acquire"
-              className="mt-8 inline-flex bg-foreground px-10 py-4 font-display text-sm font-bold tracking-[0.3em] text-ink uppercase transition-colors hover:bg-edge"
-            >
-              Add To Cart
-            </a>
           </div>
+        </section>
 
-          <div className="animate-drift relative">
-            <img
-              src={bottle}
-              alt="Sarkar Vantage parfum bottle sculpted as an emerald glass chess knight"
-              width={1200}
-              height={1504}
-              className="mx-auto w-full max-w-md object-cover shadow-halo"
-            />
+        {/* Sensory line */}
+        <section className="border-t border-border py-20 md:py-32">
+          <div className="mx-auto max-w-5xl px-6 text-center">
+            <Reveal>
+              <p className="font-display text-3xl leading-snug text-balance md:text-5xl lg:text-6xl">
+                It smells like ginger, cedarwood and the upper hand.
+              </p>
+            </Reveal>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="philosophy" className="border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-12 md:grid-cols-12 md:items-end">
-            <div className="md:col-span-7">
-              <p className="label-xs text-muted-foreground">The Philosophy</p>
-              <h2 className="mt-5 font-display text-5xl leading-none font-extrabold tracking-tight uppercase md:text-7xl">
-                Three moves
-                <br />
-                <span className="text-edge">past them</span>
-              </h2>
-            </div>
-            <p className="max-w-sm leading-relaxed text-muted-foreground md:col-span-5">
-              Bottled for the second before the deal closes, the point is won, the room
-              turns. When everyone else is still catching up.
-            </p>
-          </div>
-
-          <div className="mt-20 grid gap-px bg-border md:grid-cols-3">
-            {moves.map((move) => (
-              <div key={move.index} className="flex min-h-80 flex-col bg-background p-10">
-                <span className="label-xs mb-auto text-edge">({move.index})</span>
-                <h3 className="font-display text-2xl font-extrabold uppercase">
-                  {move.title}
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  {move.body}
+        {/* Notes pyramid */}
+        <section className="border-t border-border py-20 md:py-28">
+          <div className="mx-auto max-w-7xl px-6">
+            <Reveal>
+              <div className="mb-14 md:mb-20 md:flex md:items-end md:justify-between">
+                <h2 className="font-display text-4xl leading-none md:text-6xl">Notes</h2>
+                <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground md:mt-0">
+                  Built in three layers. Each one does a job, then steps aside.
                 </p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border">
-        <div className="relative">
-          <img
-            src={chess}
-            alt="A hand in a dark suit moving a knight across a chessboard in low light"
-            loading="lazy"
-            width={1600}
-            height={1008}
-            className="h-[70vh] w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-ink/55" />
-          <blockquote className="absolute inset-0 flex items-center justify-center px-6">
-            <p className="max-w-2xl text-center font-display text-3xl leading-tight font-extrabold tracking-tight uppercase md:text-5xl">
-              The strongest player in the room is the one who has already finished the
-              game.
-            </p>
-          </blockquote>
-        </div>
-      </section>
-
-      <section id="composition" className="border-t border-border py-28">
-        <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
-          <img
-            src={notes}
-            alt="Bergamot, green cardamom, black pepper, vetiver root and cedar on dark stone"
-            loading="lazy"
-            width={1200}
-            height={1200}
-            className="aspect-square w-full object-cover"
-          />
-          <div>
-            <p className="label-xs text-edge">Olfactive Structure</p>
-            <h2 className="mt-5 font-display text-4xl leading-none font-extrabold tracking-tight uppercase md:text-5xl">
-              Cold green,
-              <br />
-              dark finish
-            </h2>
-            <div className="mt-12 space-y-8">
-              {composition.map((row) => (
-                <div key={row.tier} className="group">
-                  <div className="mb-2 flex items-end justify-between">
-                    <span className="font-display text-xl font-extrabold uppercase">
-                      {row.tier} Notes
-                    </span>
-                    <span className="label-xs text-muted-foreground">{row.cue}</span>
+            </Reveal>
+            <div className="grid gap-px bg-border md:grid-cols-3">
+              {notes.map((note, i) => (
+                <Reveal key={note.tier} delay={i * 120}>
+                  <div className="flex h-full flex-col bg-background p-8 md:p-12">
+                    <span className="label-xs text-copper">{note.tier}</span>
+                    <p className="mt-auto pt-16 font-display text-2xl leading-tight md:text-3xl">
+                      {note.items}
+                    </p>
+                    <span className="mt-4 label-xs text-muted-foreground">{note.cue}</span>
                   </div>
-                  <div className="h-px bg-border transition-colors group-hover:bg-edge" />
-                  <p className="mt-3 text-sm text-muted-foreground">{row.note}</p>
-                </div>
+                </Reveal>
               ))}
             </div>
-            <div className="mt-12 grid grid-cols-2 gap-8 border-t border-border pt-8">
-              <div>
-                <p className="label-xs text-muted-foreground">Longevity</p>
-                <p className="mt-2 font-display text-lg font-bold">Up to 10 hours</p>
-              </div>
-              <div>
-                <p className="label-xs text-muted-foreground">Projection</p>
-                <p className="mt-2 font-display text-lg font-bold">Controlled aura</p>
-              </div>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="ritual" className="border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-            <img
-              src={packaging}
-              alt="Sarkar Vantage bottle resting on dark stone beside its matte case"
-              loading="lazy"
-              width={1600}
-              height={1008}
-              className="w-full object-cover"
-            />
-            <div>
-              <p className="label-xs text-edge">The Ritual</p>
-              <h2 className="mt-5 font-display text-4xl leading-none font-extrabold tracking-tight uppercase md:text-5xl">
-                Wear it before
-                <br />
-                you need it
-              </h2>
-              <p className="mt-8 leading-relaxed text-muted-foreground">
-                Two presses at the pulse points, 15–20 cm from the skin. Neck, wrists, the
-                inside of the collar. Apply on the way in, never in the room.
+        {/* Brand story */}
+        <section className="relative overflow-hidden border-t border-border py-24 md:py-36">
+          <div className="veil pointer-events-none absolute inset-0 opacity-40" />
+          <div className="relative mx-auto max-w-4xl px-6 text-center">
+            <Reveal>
+              <p className="font-display text-2xl leading-snug text-balance md:text-4xl md:leading-snug">
+                Vantage isn't about getting ahead. It's about already being there. Bottled for
+                the second before the deal closes, the point is won, the room turns — when
+                everyone else is still catching up, and you're already three moves past
+                them.
               </p>
-              <ul className="mt-10 space-y-4 text-sm text-muted-foreground">
-                <li className="flex gap-4 border-b border-border pb-4">
-                  <span className="label-xs text-edge">Wear</span>
-                  <span>Boardrooms · Match points · Late negotiations</span>
-                </li>
-                <li className="flex gap-4 border-b border-border pb-4">
-                  <span className="label-xs text-edge">Season</span>
-                  <span>All year, sharpest in cold air</span>
-                </li>
-                <li className="flex gap-4">
-                  <span className="label-xs text-edge">Made</span>
-                  <span>Blended and bottled in India</span>
-                </li>
-              </ul>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="border-t border-border py-20 md:py-28">
+          <div className="mx-auto max-w-3xl px-6">
+            <Reveal>
+              <h2 className="mb-12 font-display text-4xl leading-none md:text-5xl">FAQ</h2>
+            </Reveal>
+            <Reveal delay={100}>
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq) => (
+                  <AccordionItem key={faq.question} value={faq.question} className="border-border">
+                    <AccordionTrigger className="py-5 text-left font-sans text-base font-medium text-foreground hover:no-underline hover:text-copper md:text-lg [&[data-state=open]>svg]:rotate-180">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </Reveal>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-border py-14 md:py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+            <div className="text-center md:text-left">
+              <p className="font-display text-xl tracking-[0.28em] uppercase">Sarkar</p>
+              <p className="mt-1 label-xs text-muted-foreground">The One & Only</p>
+            </div>
+            <div className="flex items-center gap-6">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-muted-foreground transition-colors hover:text-copper"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" strokeWidth={1.5} />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-muted-foreground transition-colors hover:text-copper"
+                aria-label="Twitter"
+              >
+                <Twitter className="h-5 w-5" strokeWidth={1.5} />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-muted-foreground transition-colors hover:text-copper"
+                aria-label="YouTube"
+              >
+                <Youtube className="h-5 w-5" strokeWidth={1.5} />
+              </a>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section id="acquire" className="relative overflow-hidden border-t border-border py-32">
-        <div className="veil pointer-events-none absolute inset-0 opacity-60" />
-        <div className="relative mx-auto max-w-3xl px-6 text-center">
-          <p className="label-xs text-muted-foreground">Vantage · 100ml Parfum</p>
-          <h2 className="mt-6 font-display text-5xl leading-none font-extrabold tracking-tight uppercase md:text-7xl">
-            Take the
-            <br />
-            <span className="text-edge">Vantage</span>
-          </h2>
-          <p className="mx-auto mt-8 max-w-md leading-relaxed text-muted-foreground">
-            Ships within 24–36 hours. Two 7ml freebies with every order.
-          </p>
-          <a
-            href="#acquire"
-            className="mt-10 inline-flex bg-foreground px-12 py-5 font-display text-sm font-bold tracking-[0.3em] text-ink uppercase transition-colors hover:bg-edge"
-          >
-            Add To Cart — ₹ 2,499
-          </a>
-        </div>
-      </section>
-
-      <footer className="border-t border-border py-12">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 md:flex-row">
-          <span className="font-display text-sm font-bold tracking-[0.42em] uppercase">
-            Sarkar
-          </span>
-          <p className="label-xs text-muted-foreground">
-            © 2026 Sarkar Vantage · Made in India
-          </p>
+          <div className="mt-12 flex flex-col items-center gap-4 border-t border-border pt-8 md:flex-row md:justify-between">
+            <p className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} Sarkar. All rights reserved.
+            </p>
+            <div className="flex gap-6 text-xs text-muted-foreground">
+              <a href="#" className="transition-colors hover:text-foreground">
+                Privacy Policy
+              </a>
+              <a href="#" className="transition-colors hover:text-foreground">
+                Terms of Service
+              </a>
+              <a href="#" className="transition-colors hover:text-foreground">
+                Shipping & Returns
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
