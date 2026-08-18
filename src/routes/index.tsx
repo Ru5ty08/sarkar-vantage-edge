@@ -181,16 +181,20 @@ function VantageLanding() {
                 <span className="label-xs text-muted-foreground">Incl. of all taxes</span>
               </div>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button
+              <Button
                   onClick={handleAddToCart}
                   className="h-12 px-10 bg-copper text-ink font-sans text-sm font-medium tracking-[0.2em] uppercase hover:bg-copper-glow transition-colors"
                 >
                   {added ? "Added" : "Add to Cart"}
                 </Button>
               </div>
-              <p className="mt-4 text-xs text-muted-foreground">
-                Free shipping across India. Ships within 24–36 hours.
-              </p>
+              <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground">
+                <span>Free shipping</span>
+                <span className="hidden text-border sm:inline">|</span>
+                <span>2 complimentary 7ml samples</span>
+                <span className="hidden text-border sm:inline">|</span>
+                <span>Ships in 24–36 hours</span>
+              </div>
             </div>
 
             <div className="order-1 lg:order-2">
