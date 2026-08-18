@@ -89,7 +89,7 @@ function useReveal<T extends HTMLElement>() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           setVisible(true);
           observer.unobserve(el);
         }
@@ -201,7 +201,7 @@ function VantageLanding() {
                   width={1024}
                   height={1280}
                   className="w-full object-cover shadow-halo"
-                  priority
+                  
                 />
               </div>
             </div>
