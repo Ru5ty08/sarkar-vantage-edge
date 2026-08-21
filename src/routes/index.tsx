@@ -2,7 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ShoppingBag, Instagram, Twitter, Youtube } from "lucide-react";
 
-import bottle from "@/assets/vantage-bottle-sarkar.jpg";
+import bottleAvif1024 from "@/assets/vantage-bottle-1024.avif";
+import bottleJpg from "@/assets/vantage-bottle-1024.jpg";
+import bottleWebp1024 from "@/assets/vantage-bottle-1024.webp";
+import bottleAvif640 from "@/assets/vantage-bottle-640.avif";
+import bottleWebp640 from "@/assets/vantage-bottle-640.webp";
+import bottleAvif960 from "@/assets/vantage-bottle-960.avif";
+import bottleWebp960 from "@/assets/vantage-bottle-960.webp";
 import {
   Accordion,
   AccordionContent,
