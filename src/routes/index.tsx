@@ -35,6 +35,17 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [
+      {
+        rel: "preload",
+        as: "image",
+        type: "image/avif",
+        href: bottleAvif960,
+        imageSrcSet: `${bottleAvif640} 640w, ${bottleAvif960} 960w, ${bottleAvif1024} 1024w`,
+        imageSizes: "(max-width: 1024px) 90vw, 448px",
+        fetchPriority: "high",
+      },
+    ],
   }),
   component: VantageLanding,
 });
