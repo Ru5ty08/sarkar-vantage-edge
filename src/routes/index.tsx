@@ -140,7 +140,7 @@ function VantageLanding() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-copper selection:text-ink">
+    <div className="min-h-screen bg-background text-foreground selection:bg-copper selection:text-background">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="/" className="font-display text-lg tracking-[0.32em] uppercase">
@@ -152,7 +152,7 @@ function VantageLanding() {
           >
             <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
             {cartCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-copper text-[10px] font-medium text-ink">
+              <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-copper text-[10px] font-medium text-foreground">
                 {cartCount}
               </span>
             )}
@@ -183,7 +183,7 @@ function VantageLanding() {
               <div className="mt-8 flex flex-wrap gap-4">
               <Button
                   onClick={handleAddToCart}
-                  className="h-12 px-10 bg-copper text-ink font-sans text-sm font-medium tracking-[0.2em] uppercase hover:bg-copper-glow transition-colors"
+                  className="h-12 px-10 bg-copper text-foreground font-sans text-sm font-medium tracking-[0.2em] uppercase hover:bg-copper-glow transition-colors"
                 >
                   {added ? "Added" : "Add to Cart"}
                 </Button>
@@ -201,7 +201,7 @@ function VantageLanding() {
               <div className="animate-drift relative mx-auto max-w-sm lg:max-w-md">
                 <img
                   src={bottle}
-                  alt="Sarkar Vantage 100ml parfum bottle in amber glass with a brushed copper cap"
+                  alt="Sarkar Vantage 100ml parfum bottle in deep dark green glass with a matching green cap"
                   width={1024}
                   height={1280}
                   className="w-full object-cover shadow-halo"
