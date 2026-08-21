@@ -205,16 +205,30 @@ function VantageLanding() {
 
             <div className="order-1 lg:order-2">
               <div className="animate-drift relative mx-auto max-w-sm lg:max-w-md">
-                <img
-                  src={bottle}
-                  alt="Sarkar Vantage 100ml parfum bottle in deep dark green glass with a matching green cap"
-                  width={1024}
-                  height={1280}
-                  className="w-full object-cover shadow-halo"
-                  
-                />
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet={`${bottleAvif640} 640w, ${bottleAvif960} 960w, ${bottleAvif1024} 1024w`}
+                    sizes="(max-width: 1024px) 90vw, 448px"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet={`${bottleWebp640} 640w, ${bottleWebp960} 960w, ${bottleWebp1024} 1024w`}
+                    sizes="(max-width: 1024px) 90vw, 448px"
+                  />
+                  <img
+                    src={bottleJpg}
+                    alt="Sarkar Vantage 100ml parfum bottle in deep dark green glass with a matching green cap"
+                    width={1024}
+                    height={1024}
+                    fetchPriority="high"
+                    decoding="async"
+                    className="aspect-square w-full object-cover shadow-halo"
+                  />
+                </picture>
               </div>
             </div>
+
           </div>
         </section>
 
