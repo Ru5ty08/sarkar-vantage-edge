@@ -7,6 +7,13 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  vite: {
+    build: {
+      // Keep images/fonts as real hashed files so they get immutable CDN caching
+      // instead of being inlined as base64 into HTML/CSS.
+      assetsInlineLimit: 0,
+    },
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

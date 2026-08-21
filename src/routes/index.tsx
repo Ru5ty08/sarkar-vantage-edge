@@ -2,7 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ShoppingBag, Instagram, Twitter, Youtube } from "lucide-react";
 
-import bottle from "@/assets/vantage-bottle-sarkar.jpg";
+import bottleAvif1024 from "@/assets/vantage-bottle-1024.avif";
+import bottleJpg from "@/assets/vantage-bottle-1024.jpg";
+import bottleWebp1024 from "@/assets/vantage-bottle-1024.webp";
+import bottleAvif640 from "@/assets/vantage-bottle-640.avif";
+import bottleWebp640 from "@/assets/vantage-bottle-640.webp";
+import bottleAvif960 from "@/assets/vantage-bottle-960.avif";
+import bottleWebp960 from "@/assets/vantage-bottle-960.webp";
 import {
   Accordion,
   AccordionContent,
@@ -28,6 +34,17 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      {
+        rel: "preload",
+        as: "image",
+        type: "image/avif",
+        href: bottleAvif960,
+        imageSrcSet: `${bottleAvif640} 640w, ${bottleAvif960} 960w, ${bottleAvif1024} 1024w`,
+        imageSizes: "(max-width: 1024px) 90vw, 448px",
+        fetchPriority: "high",
+      },
     ],
   }),
   component: VantageLanding,
@@ -199,16 +216,30 @@ function VantageLanding() {
 
             <div className="order-1 lg:order-2">
               <div className="animate-drift relative mx-auto max-w-sm lg:max-w-md">
-                <img
-                  src={bottle}
-                  alt="Sarkar Vantage 100ml parfum bottle in deep dark green glass with a matching green cap"
-                  width={1024}
-                  height={1280}
-                  className="w-full object-cover shadow-halo"
-                  
-                />
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet={`${bottleAvif640} 640w, ${bottleAvif960} 960w, ${bottleAvif1024} 1024w`}
+                    sizes="(max-width: 1024px) 90vw, 448px"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet={`${bottleWebp640} 640w, ${bottleWebp960} 960w, ${bottleWebp1024} 1024w`}
+                    sizes="(max-width: 1024px) 90vw, 448px"
+                  />
+                  <img
+                    src={bottleJpg}
+                    alt="Sarkar Vantage 100ml parfum bottle in deep dark green glass with a matching green cap"
+                    width={1024}
+                    height={1024}
+                    fetchPriority="high"
+                    decoding="async"
+                    className="aspect-square w-full object-cover shadow-halo"
+                  />
+                </picture>
               </div>
             </div>
+
           </div>
         </section>
 
