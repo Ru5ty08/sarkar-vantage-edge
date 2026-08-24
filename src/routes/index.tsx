@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ShoppingBag, Instagram, Twitter, Youtube } from "lucide-react";
+import { ShoppingBag, Instagram, Twitter, Youtube, X } from "lucide-react";
 
 import bottleAvif1024 from "@/assets/vantage-bottle-1024.avif";
 import bottleJpg from "@/assets/vantage-bottle-1024.jpg";
@@ -146,9 +146,29 @@ function Reveal({
   );
 }
 
+function AnnouncementBar({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-x-0 top-0 z-50 bg-copper px-4 py-2.5 text-center text-xs font-medium text-foreground">
+      <div className="mx-auto flex max-w-7xl items-center justify-center gap-2">
+        <span className="tracking-wide">
+          Free shipping across India · 2 complimentary 7ml samples with every order
+        </span>
+        <button
+          onClick={onClose}
+          className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full hover:bg-foreground/10"
+          aria-label="Close announcement"
+        >
+          <X className="h-3 w-3" strokeWidth={2} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function VantageLanding() {
   const [cartCount, setCartCount] = useState(0);
   const [added, setAdded] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
 
   const handleAddToCart = () => {
     setCartCount((c) => c + 1);
@@ -158,7 +178,8 @@ function VantageLanding() {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-copper selection:text-background">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      {showBanner && <AnnouncementBar onClose={() => setShowBanner(false)} />}
+      <header className={`fixed inset-x-0 z-40 border-b border-border bg-background/80 backdrop-blur-md transition-all duration-300 ${showBanner ? "top-10" : "top-0"}`}>
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="/" className="font-display text-lg tracking-[0.32em] uppercase">
             Sarkar
@@ -179,7 +200,7 @@ function VantageLanding() {
 
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
+        <section className={`relative overflow-hidden pb-20 transition-all duration-300 md:pb-28 ${showBanner ? "pt-36 md:pt-44" : "pt-28 md:pt-36"}`}>
           <div className="veil pointer-events-none absolute inset-0 opacity-60" />
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-20">
             <div className="order-2 lg:order-1">
