@@ -200,7 +200,7 @@ function VantageLanding() {
 
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
+        <section className={`relative overflow-hidden pb-20 transition-all duration-300 md:pb-28 ${showBanner ? "pt-36 md:pt-44" : "pt-28 md:pt-36"}`}>
           <div className="veil pointer-events-none absolute inset-0 opacity-60" />
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-20">
             <div className="order-2 lg:order-1">
