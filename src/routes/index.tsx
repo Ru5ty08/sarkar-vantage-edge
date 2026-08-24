@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ShoppingBag, Instagram, Twitter, Youtube } from "lucide-react";
+import { ShoppingBag, Instagram, Twitter, Youtube, X } from "lucide-react";
 
 import bottleAvif1024 from "@/assets/vantage-bottle-1024.avif";
 import bottleJpg from "@/assets/vantage-bottle-1024.jpg";
