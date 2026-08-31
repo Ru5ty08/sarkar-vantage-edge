@@ -169,11 +169,19 @@ function VantageLanding() {
   const [cartCount, setCartCount] = useState(0);
   const [added, setAdded] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
+  const addedTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (addedTimeoutRef.current) clearTimeout(addedTimeoutRef.current);
+    };
+  }, []);
 
   const handleAddToCart = () => {
     setCartCount((c) => c + 1);
     setAdded(true);
-    setTimeout(() => setAdded(false), 1500);
+    if (addedTimeoutRef.current) clearTimeout(addedTimeoutRef.current);
+    addedTimeoutRef.current = setTimeout(() => setAdded(false), 1500);
   };
 
   return (
