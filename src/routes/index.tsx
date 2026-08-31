@@ -262,7 +262,7 @@ function VantageLanding() {
                     width={1024}
                     height={1024}
                     fetchPriority="high"
-                    decoding="async"
+                    decoding="sync"
                     className="aspect-square w-full object-cover shadow-halo"
                   />
                 </picture>
