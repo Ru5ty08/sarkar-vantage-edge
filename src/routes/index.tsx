@@ -151,7 +151,7 @@ function AnnouncementBar({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-x-0 top-0 z-50 bg-copper px-4 py-2.5 text-center text-xs font-medium text-foreground">
       <div className="mx-auto flex max-w-7xl items-center justify-center gap-2">
         <span className="tracking-wide">
-          Free shipping across India · 2 complimentary 7ml samples with every order
+          Limited-time launch offer · Free shipping across India + 2 complimentary 7ml samples with every Vantage order
         </span>
         <button
           onClick={onClose}
