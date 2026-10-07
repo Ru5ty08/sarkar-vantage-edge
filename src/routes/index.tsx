@@ -62,26 +62,21 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
-            {
-              "@type": "Organization",
-              name: "Sarkar",
-              slogan: "The One & Only",
-              url: "https://sarkar-vantage-edge.lovable.app/",
-            },
+            { "@type": "WebSite", "@id": `${SITE}/#website`, name: "Sarkar Vantage", url: `${SITE}/` },
+            { "@type": "Brand", "@id": `${SITE}/#brand`, name: "Sarkar", slogan: "The One & Only" },
             {
               "@type": "Product",
-              name: "Sarkar Vantage Parfum 100ml",
-              brand: { "@type": "Brand", name: "Sarkar" },
+              name: "Vantage (100ml)",
+              brand: { "@id": `${SITE}/#brand` },
               category: "Unisex Spiced Woody Parfum",
-              description:
-                "Unisex spiced woody parfum. Top: grapefruit, ginger. Heart: cardamom, violet leaf. Base: cedarwood, vetiver, ambergris. 25% oil concentration, lasts up to 8 hours.",
-              offers: {
-                "@type": "Offer",
-                price: "1499",
-                priceCurrency: "INR",
-                availability: "https://schema.org/InStock",
-                url: "https://sarkar-vantage-edge.lovable.app/",
-              },
+              image: `${SITE}${bottleJpg}`,
+              url: `${SITE}/`,
+              description: PRODUCT_DESCRIPTION,
+              offers: { "@type": "Offer", price: "1499", priceCurrency: "INR", url: `${SITE}/` },
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [{ "@type": "ListItem", position: 1, name: "Vantage (100ml)", item: `${SITE}/` }],
             },
             {
               "@type": "FAQPage",
@@ -99,6 +94,10 @@ export const Route = createFileRoute("/")({
   component: VantageLanding,
 });
 
+const SITE = "https://sarkar-vantage-edge.lovable.app";
+const PRODUCT_DESCRIPTION =
+  "Vantage is a 100ml unisex spiced woody parfum by Sarkar, with grapefruit and ginger on top, cardamom and violet leaf at the heart, and cedarwood, vetiver and ambergris in the base. 25% oil concentration, up to 8 hours on most skin.";
+
 const notes = [
   {
     tier: "Top",
@@ -114,6 +113,29 @@ const notes = [
     tier: "Base",
     items: "Cedarwood, Vetiver, Ambergris",
     cue: "Lasting edge",
+  },
+];
+
+const about = [
+  {
+    title: "What it smells like",
+    body: "Grapefruit and ginger open sharp. Cardamom and violet leaf hold the centre. Cedarwood, vetiver and ambergris stay close to the skin.",
+  },
+  {
+    title: "Who it's for",
+    body: "Anyone — it's unisex. Made for the ones who already have the edge: people who walk in already knowing the outcome.",
+  },
+  {
+    title: "When to wear it",
+    body: "Daily, or saved for the moments that count — negotiations, interviews, match point. Works in summer and winter.",
+  },
+  {
+    title: "How to use it",
+    body: "Spray on pulse points — neck and wrists — from a short distance. Start with two or three sprays; a parfum doesn't need more.",
+  },
+  {
+    title: "What sets it apart",
+    body: "A parfum at 25% oil concentration, lasting up to 8 hours on most skin. Spiced and woody without the sweetness — sharp, composed, built to last.",
   },
 ];
 
@@ -238,9 +260,14 @@ function VantageLanding() {
       {showBanner && <AnnouncementBar onClose={() => setShowBanner(false)} />}
       <header className={`fixed inset-x-0 z-40 border-b border-border bg-background/80 backdrop-blur-md transition-all duration-300 ${showBanner ? "top-10" : "top-0"}`}>
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <a href="/" className="font-display text-lg tracking-[0.32em] uppercase">
+          <a href="/" aria-label="Sarkar Vantage home" className="font-display text-lg tracking-[0.32em] uppercase">
             Sarkar
           </a>
+          <nav aria-label="Page sections" className="hidden gap-8 text-xs tracking-[0.2em] uppercase text-muted-foreground md:flex">
+            <a href="#about" className="transition-colors hover:text-foreground">About Vantage</a>
+            <a href="#notes" className="transition-colors hover:text-foreground">Fragrance notes</a>
+            <a href="#faq" className="transition-colors hover:text-foreground">FAQ</a>
+          </nav>
           <button
             className="relative flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:text-copper"
             aria-label="Shopping bag"
@@ -333,11 +360,11 @@ function VantageLanding() {
         </section>
 
         {/* Notes pyramid */}
-        <section className="border-t border-border py-20 md:py-28">
+        <section id="notes" aria-labelledby="notes-title" className="scroll-mt-28 border-t border-border py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-6">
             <Reveal>
               <div className="mb-14 md:mb-20 md:flex md:items-end md:justify-between">
-                <h2 className="font-display text-4xl leading-none md:text-6xl">Notes</h2>
+                <h2 id="notes-title" className="font-display text-4xl leading-none md:text-6xl">Fragrance Notes</h2>
                 <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground md:mt-0">
                   Built in three layers. Each one does a job, then steps aside.
                 </p>
@@ -347,7 +374,7 @@ function VantageLanding() {
               {notes.map((note, i) => (
                 <Reveal key={note.tier} delay={i * 120}>
                   <div className="flex h-full flex-col bg-background p-8 md:p-12">
-                    <span className="label-xs text-copper">{note.tier}</span>
+                    <h3 className="label-xs text-copper">{note.tier} notes</h3>
                     <p className="mt-auto pt-16 font-display text-2xl leading-tight md:text-3xl">
                       {note.items}
                     </p>
@@ -374,11 +401,29 @@ function VantageLanding() {
           </div>
         </section>
 
+        {/* About */}
+        <section id="about" aria-labelledby="about-title" className="scroll-mt-28 border-t border-border py-20 md:py-28">
+          <div className="mx-auto max-w-5xl px-6">
+            <h2 id="about-title" className="font-display text-4xl leading-none md:text-5xl">About Vantage</h2>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              Vantage is a unisex spiced woody parfum by Sarkar, from the house behind Throne, Regal, Noble and Orion. 100ml, ₹1,499 incl. of all taxes.
+            </p>
+            <div className="mt-12 grid gap-10 md:grid-cols-2">
+              {about.map((item) => (
+                <div key={item.title}>
+                  <h3 className="font-display text-2xl">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
-        <section className="border-t border-border py-20 md:py-28">
+        <section id="faq" aria-labelledby="faq-title" className="scroll-mt-28 border-t border-border py-20 md:py-28">
           <div className="mx-auto max-w-3xl px-6">
             <Reveal>
-              <h2 className="mb-12 font-display text-4xl leading-none md:text-5xl">FAQ</h2>
+              <h2 id="faq-title" className="mb-12 font-display text-4xl leading-none md:text-5xl">FAQ</h2>
             </Reveal>
             <Reveal delay={100}>
               <Accordion type="single" collapsible className="w-full">
@@ -387,7 +432,7 @@ function VantageLanding() {
                     <AccordionTrigger className="py-5 text-left font-sans text-base font-medium text-foreground hover:no-underline hover:text-copper md:text-lg [&[data-state=open]>svg]:rotate-180">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+                    <AccordionContent forceMount className="pb-5 text-sm leading-relaxed text-muted-foreground md:text-base">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
