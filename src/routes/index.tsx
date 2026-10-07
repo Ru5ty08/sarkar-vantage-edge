@@ -32,10 +32,20 @@ export const Route = createFileRoute("/")({
         content:
           "For the ones who already have the edge. Unisex spiced woody parfum from Sarkar.",
       },
-      { property: "og:type", content: "website" },
+      { property: "og:type", content: "product" },
+      { property: "og:url", content: "https://sarkar-vantage-edge.lovable.app/" },
+      { property: "og:site_name", content: "Sarkar" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Sarkar Vantage — Already three moves ahead" },
+      {
+        name: "twitter:description",
+        content: "For the ones who already have the edge. Unisex spiced woody parfum from Sarkar.",
+      },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "theme-color", content: "#121614" },
     ],
     links: [
+      { rel: "canonical", href: "https://sarkar-vantage-edge.lovable.app/" },
       {
         rel: "preload",
         as: "image",
@@ -44,6 +54,45 @@ export const Route = createFileRoute("/")({
         imageSrcSet: `${bottleAvif640} 640w, ${bottleAvif960} 960w, ${bottleAvif1024} 1024w`,
         imageSizes: "(max-width: 1024px) 90vw, 448px",
         fetchPriority: "high",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "Sarkar",
+              slogan: "The One & Only",
+              url: "https://sarkar-vantage-edge.lovable.app/",
+            },
+            {
+              "@type": "Product",
+              name: "Sarkar Vantage Parfum 100ml",
+              brand: { "@type": "Brand", name: "Sarkar" },
+              category: "Unisex Spiced Woody Parfum",
+              description:
+                "Unisex spiced woody parfum. Top: grapefruit, ginger. Heart: cardamom, violet leaf. Base: cedarwood, vetiver, ambergris. 25% oil concentration, lasts up to 8 hours.",
+              offers: {
+                "@type": "Offer",
+                price: "1499",
+                priceCurrency: "INR",
+                availability: "https://schema.org/InStock",
+                url: "https://sarkar-vantage-edge.lovable.app/",
+              },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: faqs.map((f) => ({
+                "@type": "Question",
+                name: f.question,
+                acceptedAnswer: { "@type": "Answer", text: f.answer },
+              })),
+            },
+          ],
+        }),
       },
     ],
   }),
