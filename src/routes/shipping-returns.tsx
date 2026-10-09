@@ -10,8 +10,11 @@ export const Route = createFileRoute("/shipping-returns")({
       <p>Shipping is free on every Vantage order across India.</p>
       <p>Orders ship within 24–36 hours.</p>
       <p>Every Vantage order includes 2 complimentary 7ml samples during the launch offer.</p>
-      <h2>Returns</h2>
-      <p>Full return terms will be published here before sales open.</p>
+      <h2>Returns & exchanges</h2>
+      <p>[RETURN_EXCHANGE_POLICY]</p>
+      <h2>Payment</h2>
+      <p>[ACCEPTED_PAYMENT_METHODS]</p>
+      <p>Questions about an order? <a href="/contact">Contact us</a>.</p>
     </PolicyPage>
   ),
 });

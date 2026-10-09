@@ -6,8 +6,12 @@ export const Route = createFileRoute("/privacy")({
   component: () => (
     <PolicyPage title="Privacy Policy">
       <p>This site does not use analytics, advertising trackers or third-party scripts.</p>
+      <h2>What we collect</h2>
+      <p>If you use the <a href="/contact">contact form</a>, we store your name, email and message so we can reply.</p>
+      <p>If you <a href="/reviews">write a review</a>, we store your name, rating and review; approved reviews are shown publicly with your name.</p>
       <p>Items you add to the cart stay in your browser and are not sent to us.</p>
-      <p>The full privacy policy will be published here before sales open.</p>
+      <h2>Your rights</h2>
+      <p>[DATA_REQUESTS_AND_RETENTION_POLICY]</p>
     </PolicyPage>
   ),
 });
