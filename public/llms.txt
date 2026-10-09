@@ -14,3 +14,11 @@
 
 ## Pages
 - [Home](https://sarkar-vantage-edge.lovable.app/)
+- [About Sarkar](https://sarkar-vantage-edge.lovable.app/about)
+- [Reviews](https://sarkar-vantage-edge.lovable.app/reviews)
+- [Contact](https://sarkar-vantage-edge.lovable.app/contact)
+- [Press](https://sarkar-vantage-edge.lovable.app/press)
+- [Shipping & Returns](https://sarkar-vantage-edge.lovable.app/shipping-returns)
+- [Privacy Policy](https://sarkar-vantage-edge.lovable.app/privacy)
+- [Terms of Service](https://sarkar-vantage-edge.lovable.app/terms)
+- [Full brand summary](https://sarkar-vantage-edge.lovable.app/llms-full.txt)
