@@ -310,9 +310,12 @@ function VantageLanding() {
             Sarkar
           </a>
           <nav aria-label="Page sections" className="hidden gap-8 text-xs tracking-[0.2em] uppercase text-muted-foreground md:flex">
-            <a href="#about" className="transition-colors hover:text-foreground">About Vantage</a>
+            <a href="#about" className="transition-colors hover:text-foreground">Vantage</a>
             <a href="#notes" className="transition-colors hover:text-foreground">Fragrance notes</a>
             <a href="#faq" className="transition-colors hover:text-foreground">FAQ</a>
+            <a href="/about" className="transition-colors hover:text-foreground">About Sarkar</a>
+            <a href="/reviews" className="transition-colors hover:text-foreground">Reviews</a>
+            <a href="/contact" className="transition-colors hover:text-foreground">Contact</a>
           </nav>
           <button
             className="relative flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:text-copper"
