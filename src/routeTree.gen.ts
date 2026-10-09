@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ShippingRouteImport } from './routes/shipping'
+import { Route as ShippingReturnsRouteImport } from './routes/shipping-returns'
 import { Route as TermsRouteImport } from './routes/terms'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const ShippingRoute = ShippingRouteImport.update({
   path: '/shipping',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShippingReturnsRoute = ShippingReturnsRouteImport.update({
+  id: '/shipping-returns',
+  path: '/shipping-returns',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/shipping': typeof ShippingRoute
+  '/shipping-returns': typeof ShippingReturnsRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/shipping': typeof ShippingRoute
+  '/shipping-returns': typeof ShippingReturnsRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/shipping': typeof ShippingRoute
+  '/shipping-returns': typeof ShippingReturnsRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacy' | '/shipping' | '/terms'
+  fullPaths: '/' | '/privacy' | '/shipping' | '/shipping-returns' | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy' | '/shipping' | '/terms'
-  id: '__root__' | '/' | '/privacy' | '/shipping' | '/terms'
+  to: '/' | '/privacy' | '/shipping' | '/shipping-returns' | '/terms'
+  id:
+    '__root__' | '/' | '/privacy' | '/shipping' | '/shipping-returns' | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacyRoute: typeof PrivacyRoute
   ShippingRoute: typeof ShippingRoute
+  ShippingReturnsRoute: typeof ShippingReturnsRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -92,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShippingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shipping-returns': {
+      id: '/shipping-returns'
+      path: '/shipping-returns'
+      fullPath: '/shipping-returns'
+      preLoaderRoute: typeof ShippingReturnsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -106,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivacyRoute: PrivacyRoute,
   ShippingRoute: ShippingRoute,
+  ShippingReturnsRoute: ShippingReturnsRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
