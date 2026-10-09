@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ShoppingBag, Instagram, Twitter, Youtube, X } from "lucide-react";
+import { ShoppingBag, X } from "lucide-react";
+import { ContactLine, SiteFooterLinks } from "@/components/PolicyPage";
+import { FOUNDERS, ORGANIZATION_LD, PAGE_PUBLISHED, PAGE_UPDATED, SITE, SOCIALS } from "@/lib/brand";
 
 import bottleAvif1024 from "@/assets/vantage-bottle-1024.avif";
 import bottleJpg from "@/assets/vantage-bottle-1024.jpg";
@@ -62,17 +64,55 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "WebSite", "@id": `${SITE}/#website`, name: "Sarkar Vantage", url: `${SITE}/` },
+            { "@type": "WebSite", "@id": `${SITE}/#website`, name: "Sarkar Vantage", url: `${SITE}/`, publisher: { "@id": `${SITE}/#organization` } },
+            ORGANIZATION_LD,
             { "@type": "Brand", "@id": `${SITE}/#brand`, name: "Sarkar", slogan: "The One & Only" },
             {
+              "@type": "WebPage",
+              "@id": `${SITE}/#webpage`,
+              url: `${SITE}/`,
+              name: "Sarkar Vantage — Unisex Spiced Woody Parfum",
+              datePublished: PAGE_PUBLISHED,
+              dateModified: PAGE_UPDATED,
+              author: { "@id": `${SITE}/#organization` },
+              publisher: { "@id": `${SITE}/#organization` },
+              mainEntity: { "@id": `${SITE}/#product` },
+            },
+            {
               "@type": "Product",
+              "@id": `${SITE}/#product`,
               name: "Vantage (100ml)",
               brand: { "@id": `${SITE}/#brand` },
+              manufacturer: { "@id": `${SITE}/#organization` },
               category: "Unisex Spiced Woody Parfum",
               image: `${SITE}${bottleJpg}`,
               url: `${SITE}/`,
               description: PRODUCT_DESCRIPTION,
-              offers: { "@type": "Offer", price: "1499", priceCurrency: "INR", url: `${SITE}/` },
+              additionalProperty: [
+                { "@type": "PropertyValue", name: "Top notes", value: "Grapefruit, Ginger" },
+                { "@type": "PropertyValue", name: "Heart notes", value: "Cardamom, Violet Leaf" },
+                { "@type": "PropertyValue", name: "Base notes", value: "Cedarwood, Vetiver, Ambergris" },
+                { "@type": "PropertyValue", name: "Concentration", value: "Parfum, 25% oil" },
+                { "@type": "PropertyValue", name: "Volume", value: "100ml" },
+              ],
+              offers: {
+                "@type": "Offer",
+                price: "1499",
+                priceCurrency: "INR",
+                availability: "https://schema.org/InStock",
+                itemCondition: "https://schema.org/NewCondition",
+                url: `${SITE}/`,
+                seller: { "@id": `${SITE}/#organization` },
+                shippingDetails: {
+                  "@type": "OfferShippingDetails",
+                  shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "INR" },
+                  shippingDestination: { "@type": "DefinedRegion", addressCountry: "IN" },
+                  deliveryTime: {
+                    "@type": "ShippingDeliveryTime",
+                    handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 2, unitCode: "DAY" },
+                  },
+                },
+              },
             },
             {
               "@type": "BreadcrumbList",
@@ -94,9 +134,15 @@ export const Route = createFileRoute("/")({
   component: VantageLanding,
 });
 
-const SITE = "https://sarkar-vantage-edge.lovable.app";
 const PRODUCT_DESCRIPTION =
   "Vantage is a 100ml unisex spiced woody parfum by Sarkar, with grapefruit and ginger on top, cardamom and violet leaf at the heart, and cedarwood, vetiver and ambergris in the base. 25% oil concentration, up to 8 hours on most skin.";
+
+const glossary = [
+  { term: "Ambergris", def: "A warm, salty-sweet base note. Used in modern perfumery to add depth and help a scent last on skin." },
+  { term: "Vetiver", def: "The root of a tropical grass. Smoky, earthy and dry — a classic woody base note." },
+  { term: "Violet leaf", def: "Green and slightly metallic, unlike the sweet violet flower. Adds a crisp, cool edge." },
+  { term: "Cardamom", def: "A spice with a fresh, aromatic warmth that sits between citrus and wood." },
+];
 
 const notes = [
   {
@@ -310,13 +356,12 @@ function VantageLanding() {
                   {added ? "Added" : "Add to Cart"}
                 </Button>
               </div>
-              <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground">
-                <span>Free shipping</span>
-                <span className="hidden text-border sm:inline">|</span>
-                <span>2 complimentary 7ml samples</span>
-                <span className="hidden text-border sm:inline">|</span>
-                <span>Ships in 24–36 hours</span>
-              </div>
+              <ul aria-label="Why buy direct" className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground">
+                <li>Free shipping across India</li>
+                <li>2 complimentary 7ml samples</li>
+                <li>Ships in 24–36 hours</li>
+                <li>Authentic — sold direct by Sarkar</li>
+              </ul>
             </div>
 
             <div className="order-1 lg:order-2">
@@ -408,6 +453,11 @@ function VantageLanding() {
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
               Vantage is a unisex spiced woody parfum by Sarkar, from the house behind Throne, Regal, Noble and Orion. 100ml, ₹1,499 incl. of all taxes.
             </p>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Written by the <a href="/about" className="text-copper hover:text-foreground">Sarkar team</a>, founded by {FOUNDERS.map((f) => f.name).join(", ")}
+              {" · "}Published <time dateTime={PAGE_PUBLISHED}>7 October 2026</time>
+              {" · "}Last updated <time dateTime={PAGE_UPDATED}>9 October 2026</time>
+            </p>
             <div className="mt-12 grid gap-10 md:grid-cols-2">
               {about.map((item) => (
                 <div key={item.title}>
@@ -415,6 +465,37 @@ function VantageLanding() {
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{item.body}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How it's made + glossary */}
+        <section id="made" aria-labelledby="made-title" className="scroll-mt-28 border-t border-border py-20 md:py-28">
+          <div className="mx-auto grid max-w-5xl gap-16 px-6 md:grid-cols-2">
+            <div>
+              <h2 id="made-title" className="font-display text-4xl leading-none md:text-5xl">How Vantage is made</h2>
+              <ul className="mt-8 space-y-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+                <li><strong className="text-foreground">Concentration.</strong> A parfum at 25% oil — the highest standard strength, which is why it lasts up to 8 hours.</li>
+                <li><strong className="text-foreground">Development.</strong> Sarkar's range took nearly three years to develop before launch in August 2026.</li>
+                <li><strong className="text-foreground">Ingredients & testing.</strong> [NOTE_SOURCING_AND_BATCH_TESTING]</li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="font-display text-4xl leading-none md:text-5xl">Notes explained</h2>
+              <dl className="mt-8 space-y-5 text-sm leading-relaxed md:text-base">
+                {glossary.map((g) => (
+                  <div key={g.term}>
+                    <dt className="font-display text-xl text-foreground">{g.term}</dt>
+                    <dd className="mt-1 text-muted-foreground">{g.def}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-8 text-xs text-muted-foreground">
+                Sources:{" "}
+                <a href="https://www.fragrantica.com/notes/" target="_blank" rel="noopener noreferrer" className="text-copper hover:text-foreground">Fragrantica note directory</a>
+                {" · "}
+                <a href="https://ifrafragrance.org/" target="_blank" rel="noopener noreferrer" className="text-copper hover:text-foreground">IFRA (International Fragrance Association)</a>
+              </p>
             </div>
           </div>
         </section>
@@ -451,51 +532,25 @@ function VantageLanding() {
               <p className="font-display text-xl tracking-[0.28em] uppercase">Sarkar</p>
               <p className="mt-1 label-xs text-muted-foreground">The One & Only</p>
             </div>
-            <div className="flex items-center gap-6">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="text-muted-foreground transition-colors hover:text-copper"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" strokeWidth={1.5} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noreferrer"
-                className="text-muted-foreground transition-colors hover:text-copper"
-                aria-label="Twitter"
-              >
-                <Twitter className="h-5 w-5" strokeWidth={1.5} />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noreferrer"
-                className="text-muted-foreground transition-colors hover:text-copper"
-                aria-label="YouTube"
-              >
-                <Youtube className="h-5 w-5" strokeWidth={1.5} />
-              </a>
-            </div>
+            {SOCIALS.length > 0 && (
+              <nav aria-label="Find us on" className="flex items-center gap-6 text-xs text-muted-foreground">
+                <span className="label-xs">Find us on</span>
+                {SOCIALS.map((s) => (
+                  <a key={s.url} href={s.url} target="_blank" rel="me noopener noreferrer" className="transition-colors hover:text-copper">
+                    {s.name}
+                  </a>
+                ))}
+              </nav>
+            )}
           </div>
           <div className="mt-12 flex flex-col items-center gap-4 border-t border-border pt-8 md:flex-row md:justify-between">
-            <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} Sarkar. All rights reserved.
-            </p>
-            <div className="flex gap-6 text-xs text-muted-foreground">
-              <a href="#" className="transition-colors hover:text-foreground">
-                Privacy Policy
-              </a>
-              <a href="#" className="transition-colors hover:text-foreground">
-                Terms of Service
-              </a>
-              <a href="#" className="transition-colors hover:text-foreground">
-                Shipping & Returns
-              </a>
+            <div className="space-y-2 text-center md:text-left">
+              <p className="text-xs text-muted-foreground">
+                © {new Date().getFullYear()} Sarkar. All rights reserved.
+              </p>
+              <ContactLine />
             </div>
+            <SiteFooterLinks className="justify-center" />
           </div>
         </div>
       </footer>
