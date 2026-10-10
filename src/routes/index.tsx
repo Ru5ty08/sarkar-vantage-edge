@@ -88,6 +88,8 @@ export const Route = createFileRoute("/")({
               image: `${SITE}${bottleJpg}`,
               url: `${SITE}/`,
               description: PRODUCT_DESCRIPTION,
+              datePublished: PAGE_PUBLISHED,
+              dateModified: PAGE_UPDATED,
               additionalProperty: [
                 { "@type": "PropertyValue", name: "Top notes", value: "Grapefruit, Ginger" },
                 { "@type": "PropertyValue", name: "Heart notes", value: "Cardamom, Violet Leaf" },
@@ -99,6 +101,7 @@ export const Route = createFileRoute("/")({
                 "@type": "Offer",
                 price: "1499",
                 priceCurrency: "INR",
+                priceValidUntil: "2027-03-31",
                 availability: "https://schema.org/InStock",
                 itemCondition: "https://schema.org/NewCondition",
                 url: `${SITE}/`,
