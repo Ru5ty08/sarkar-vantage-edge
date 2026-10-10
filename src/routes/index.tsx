@@ -162,7 +162,7 @@ const notes = [
   },
 ];
 
-const about = [
+const about: { title: string; body: React.ReactNode }[] = [
   {
     title: "What it smells like",
     body: "Grapefruit and ginger open sharp. Cardamom and violet leaf hold the centre. Cedarwood, vetiver and ambergris stay close to the skin.",
@@ -181,7 +181,15 @@ const about = [
   },
   {
     title: "What sets it apart",
-    body: "A parfum at 25% oil concentration, lasting up to 8 hours on most skin. Spiced and woody without the sweetness — sharp, composed, built to last.",
+    body: (
+      <>
+        According to{" "}
+        <a href="https://ifrafragrance.org/" target="_blank" rel="noopener noreferrer" className="text-copper hover:text-foreground">
+          IFRA guidelines
+        </a>
+        , a parfum typically contains 20–30% fragrance oil; Vantage is 25%. Lasting up to 8 hours on most skin. Spiced and woody without the sweetness — sharp, composed, built to last.
+      </>
+    ),
   },
 ];
 
@@ -359,11 +367,13 @@ function VantageLanding() {
                   {added ? "Added" : "Add to Cart"}
                 </Button>
               </div>
+              <p className="mt-4 text-xs text-muted-foreground">
+                Secure checkout · Easy returns · Made in India · Authentic, sold direct by Sarkar
+              </p>
               <ul aria-label="Why buy direct" className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground">
                 <li>Free shipping across India</li>
                 <li>2 complimentary 7ml samples</li>
                 <li>Ships in 24–36 hours</li>
-                <li>Authentic — sold direct by Sarkar</li>
               </ul>
             </div>
 
@@ -480,7 +490,6 @@ function VantageLanding() {
               <ul className="mt-8 space-y-5 text-sm leading-relaxed text-muted-foreground md:text-base">
                 <li><strong className="text-foreground">Concentration.</strong> A parfum at 25% oil — the highest standard strength, which is why it lasts up to 8 hours.</li>
                 <li><strong className="text-foreground">Development.</strong> Sarkar's range took nearly three years to develop before launch in August 2026.</li>
-                <li><strong className="text-foreground">Ingredients & testing.</strong> [NOTE_SOURCING_AND_BATCH_TESTING]</li>
               </ul>
             </div>
             <div>
