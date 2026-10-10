@@ -138,7 +138,7 @@ export const Route = createFileRoute("/")({
 });
 
 const PRODUCT_DESCRIPTION =
-  "Vantage is a 100ml unisex spiced woody parfum by Sarkar, with grapefruit and ginger on top, cardamom and violet leaf at the heart, and cedarwood, vetiver and ambergris in the base. 25% oil concentration, up to 8 hours on most skin.";
+  "Sarkar Vantage is a 100ml unisex spiced woody parfum at 25% oil concentration with notes of grapefruit, ginger, cardamom, violet leaf, cedarwood, vetiver and ambergris, lasting up to 8 hours on most skin.";
 
 const glossary = [
   { term: "Ambergris", def: "A warm, salty-sweet base note. Used in modern perfumery to add depth and help a scent last on skin." },
@@ -167,60 +167,52 @@ const notes = [
 
 const about: { title: string; body: React.ReactNode }[] = [
   {
-    title: "What it smells like",
-    body: "Grapefruit and ginger open sharp. Cardamom and violet leaf hold the centre. Cedarwood, vetiver and ambergris stay close to the skin.",
+    title: "What does Sarkar Vantage smell like?",
+    body: "Sarkar Vantage is a unisex spiced woody parfum. It opens with grapefruit and ginger, holds a heart of cardamom and violet leaf, and dries down to cedarwood, vetiver and ambergris that stay close to the skin. The profile is spiced and woody without sweetness: sharp, composed and built to last.",
   },
   {
-    title: "Who it's for",
-    body: "Anyone — it's unisex. Made for the ones who already have the edge: people who walk in already knowing the outcome.",
+    title: "Who is Sarkar Vantage for?",
+    body: "Sarkar Vantage is a unisex parfum, made for anyone who wants a sharp, composed fragrance. Sarkar designed it for people who walk into a room already knowing the outcome, whether that room is a negotiation, an interview or a match. It suits all genders and works as a daily signature or a fragrance saved for moments that count.",
   },
   {
-    title: "When to wear it",
-    body: "Daily, or saved for the moments that count — negotiations, interviews, match point. Works in summer and winter.",
+    title: "When should you wear Sarkar Vantage?",
+    body: "Sarkar Vantage works daily or for high-stakes moments such as negotiations, interviews and match point. Its citrus-ginger opening carries well in summer, while its cedarwood and vetiver base holds up through winter. Because it is a 25% oil parfum lasting up to 8 hours on most skin, one application typically covers a full working day.",
   },
   {
-    title: "How to use it",
-    body: "Spray on pulse points — neck and wrists — from a short distance. Start with two or three sprays; a parfum doesn't need more.",
+    title: "How do you apply Sarkar Vantage?",
+    body: "To apply Sarkar Vantage, spray two or three times on pulse points, the neck and wrists, from a short distance. A parfum at 25% oil concentration does not need more. Avoid rubbing the wrists together, which can dull the opening notes. Reapply only if needed after several hours.",
   },
   {
-    title: "What sets it apart",
-    body: (
-      <>
-        According to{" "}
-        <a href="https://ifrafragrance.org/" target="_blank" rel="noopener noreferrer" className="text-copper hover:text-foreground">
-          IFRA guidelines
-        </a>
-        , a parfum typically contains 20–30% fragrance oil; Vantage is 25%. Lasting up to 8 hours on most skin. Spiced and woody without the sweetness — sharp, composed, built to last.
-      </>
-    ),
+    title: "What makes Sarkar Vantage different?",
+    body: "Sarkar Vantage is a 100ml parfum at 25% oil concentration, lasting up to 8 hours on most skin. It is spiced and woody without sweetness. It is priced at ₹1,499 including all taxes, ships free across India in 24–36 hours, and includes 2 complimentary 7ml samples with every order.",
   },
 ];
 
 const faqs = [
   {
-    question: "How long does Vantage last?",
+    question: "How long does Sarkar Vantage last?",
     answer:
-      "Vantage is a parfum with a 25% oil concentration. On most skin types it lasts up to 8 hours, depending on weather, application and your skin chemistry.",
+      "Sarkar Vantage is a parfum with a 25% oil concentration. On most skin types, Sarkar Vantage lasts up to 8 hours, depending on weather, application and skin chemistry.",
   },
   {
-    question: "What does Vantage smell like?",
+    question: "What does Sarkar Vantage smell like?",
     answer:
-      "Sharp and composed. A grapefruit and ginger opening, a cardamom and violet leaf heart, and a cedarwood, vetiver and ambergris base that stays close to the skin.",
+      "Sarkar Vantage smells sharp and composed: a grapefruit and ginger opening, a cardamom and violet leaf heart, and a cedarwood, vetiver and ambergris base that stays close to the skin.",
   },
   {
-    question: "Can I wear Vantage every day?",
+    question: "Can I wear Sarkar Vantage every day?",
     answer:
-      "Yes. It's sharp enough for moments that need an edge, easy enough for daily wear.",
+      "Yes. Sarkar Vantage is sharp enough for moments that need an edge and easy enough for daily wear.",
   },
   {
-    question: "Summer or winter?",
+    question: "Is Sarkar Vantage for summer or winter?",
     answer:
-      "Both. The citrus-ginger opening carries well in warm weather, while the woody base holds up through winter.",
+      "Sarkar Vantage works in both seasons. The citrus-ginger opening carries well in warm weather, while the woody base of cedarwood and vetiver holds up through winter.",
   },
   {
-    question: "When should I wear Vantage?",
+    question: "When should I wear Sarkar Vantage?",
     answer:
-      "Negotiations, interviews, match point — any moment before the advantage is yours.",
+      "Wear Sarkar Vantage for negotiations, interviews, match point and any moment before the advantage is yours.",
   },
 ];
 
@@ -350,7 +342,7 @@ function VantageLanding() {
             <div className="order-2 lg:order-1">
               <p className="label-xs text-copper">Unisex Spiced Woody Parfum</p>
               <h1 className="mt-5 font-display text-6xl leading-[0.9] font-normal tracking-tight md:text-8xl lg:text-9xl">
-                Vantage
+                Vantage{" "}
                 <span className="block text-2xl text-muted-foreground md:text-3xl md:leading-[1.2]">
                   (100ml)
                 </span>
@@ -395,7 +387,7 @@ function VantageLanding() {
                   />
                   <img
                     src={bottleJpg}
-                    alt="Sarkar Vantage 100ml parfum bottle in deep dark green glass with a matching green cap"
+                    alt="Sarkar Vantage 100ml unisex spiced woody parfum in a deep green glass bottle with a matching green cap"
                     width={1024}
                     height={1024}
                     fetchPriority="high"
@@ -453,10 +445,10 @@ function VantageLanding() {
           <div className="relative mx-auto max-w-4xl px-6 text-center">
             <Reveal>
               <p className="font-display text-2xl leading-snug text-balance md:text-4xl md:leading-snug">
-                Vantage isn't about getting ahead. It's about already being there. Bottled for
+                Sarkar Vantage isn't about getting ahead. It's about already being there. Bottled for
                 the second before the deal closes, the point is won, the room turns — when
-                everyone else is still catching up, and you're already three moves past
-                them.
+                everyone else is still catching up, and the one wearing Sarkar Vantage is
+                already three moves past them.
               </p>
             </Reveal>
           </div>
